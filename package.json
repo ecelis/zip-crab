@@ -1,5 +1,5 @@
 {
-  "name": "zippy",
+  "name": "zip-crab",
   "version": "1.0.0",
   "description": "Fetch Geocode information from HERE RESTful API",
   "main": "index.js",
@@ -11,6 +11,7 @@
   "author": "Ernesto Celis de la Fuente <ernesto@celisdelafuente.net> (https://celisdelafuente.net)",
   "license": "MIT",
   "dependencies": {
+    "csv": "^5.3.2",
     "got": "^11.5.1"
   },
   "devDependencies": {

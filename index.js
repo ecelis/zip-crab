@@ -1,4 +1,7 @@
 'use strict'
+const os = require("os");
+const fs = require("fs");
+const parse = require("csv-parse/lib/sync");
 const got = require("got");
 
 const url = "https://geocoder.ls.hereapi.com/search/6.2/geocode.json";
@@ -21,3 +24,9 @@ exports.geoCode = async function geoCode (qry) {
   }
 }
 
+exports.readCsv = async function readCsv (filePath) {
+  let records = [];
+  const content = fs.readFileSync(filePath, "utf8",);
+  records = await parse(content);
+  return records;
+}
