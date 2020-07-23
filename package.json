@@ -1,0 +1,20 @@
+{
+  "name": "zippy",
+  "version": "1.0.0",
+  "description": "Fetch Geocode information from HERE RESTful API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js 'Monterrwy, Nuevo Leon'",
+    "test": "jest --watchAll"
+  },
+  "keywords": [],
+  "author": "Ernesto Celis de la Fuente <ernesto@celisdelafuente.net> (https://celisdelafuente.net)",
+  "license": "MIT",
+  "dependencies": {
+    "got": "^11.5.1"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
