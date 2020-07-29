@@ -4,6 +4,9 @@ const fs = require("fs");
 const parse = require("csv-parse/lib/sync");
 const got = require("got");
 
+if (process.env.NODE_ENV == 'development') {
+  require('dotenv').config();
+}
 const url = "https://geocoder.ls.hereapi.com/search/6.2/geocode.json";
 const apiKey = process.env.HERE_API_KEY;
 

@@ -1,7 +1,7 @@
 const zc = require('./index');
 
-test('Geocode Monterrwy, NL', async () => {
-  const data = await zc.geoCode("Monterrwy, NL");
+test('Geocode Sonora, 83260', async () => {
+  const data = await zc.geoCode("Sonora, 83260");
   expect(data).toEqual(expect.objectContaining({
     Latitude: expect.any(Number),
     Longitude: expect.any(Number)
@@ -9,6 +9,6 @@ test('Geocode Monterrwy, NL', async () => {
 });
 
 test("Read Address from CSV", async () => {
-  const records = await zc.readCsv('/home/ecelis/Downloads/HS_18_03_20.csv');
+  const records = await zc.readCsv('examples/data.csv');
   expect(records.length).toBeGreaterThan(0);
 });
