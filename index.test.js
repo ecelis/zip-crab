@@ -12,3 +12,9 @@ test("Read Address from CSV", async () => {
   const records = await zc.readCsv('examples/data.csv');
   expect(records.length).toBeGreaterThan(0);
 });
+
+test("Save to MongoDB", async () => {
+  const data = {Latitude: 2, Longitude: 3};
+  const result = await zc.save(data);
+  expect(result).toEqual({})
+});
