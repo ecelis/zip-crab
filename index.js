@@ -10,7 +10,6 @@ if (process.env.NODE_ENV == 'development') {
 
 const { MONGODB_PASSWORD, MONGODB_USER, MONGODB_DB } = process.env
 const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0.9f0eo.mongodb.net/${MONGODB_DB}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true });
 const url = "https://geocoder.ls.hereapi.com/search/6.2/geocode.json";
 const apiKey = process.env.HERE_API_KEY;
 
@@ -38,19 +37,23 @@ exports.readCsv = async function readCsv (filePath) {
   return records;
 }
 
-exports.save = function save(doc) {
+exports.save = async function save(doc) {
+  let result;
+  const client = new MongoClient(uri,
+    { useNewUrlParser: true, poolSize: 10 });
   try {
-    client.connect(async err => {
-      const collection = client.db(MONGODB_DB).collection("ZipCodes");
-      let result;
-      if (Array.isArray(doc)) {
-        result = await collection.insertMany(doc)
-      } else {
-        result = await collection.insertOne(doc)
-      }
-      client.close();
-    });
+    await client.connect();
+    const database = client.db(MONGODB_DB);
+    const collection = database.collection("ZipCodes");
+    if (Array.isArray(doc)) {
+      result = await collection.insertMany(doc);
+    } else {
+      result = await collection.insertOne(doc);
+    }
   } catch (e) {
     console.error(e);
+  } finally {
+    await client.close();
   }
+  return result;
 }
