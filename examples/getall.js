@@ -6,7 +6,7 @@ const zc = require('../index');
   let counter = 0;
   console.log(`Total: ${total}`);
   // TODO Filter unique
-  records.forEach(async record => {
+  records.forEach(record => {
     // Calle, Colonia, Ciudad, Estado, CP
     // let address = `${record[29]}, ${record[30]}, ${record[31]}, ${record[32]}, C.P. `;
     let address = `${record[32]}, C.P. `;
