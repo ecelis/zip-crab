@@ -6,7 +6,7 @@ const zc = require('../index');
   let counter = 0;
   console.log(`Total: ${total}`);
   // TODO Filter unique
-  const addresses = await records.map(async record => {
+  records.forEach(async record => {
     // Calle, Colonia, Ciudad, Estado, CP
     // let address = `${record[29]}, ${record[30]}, ${record[31]}, ${record[32]}, C.P. `;
     let address = `${record[32]}, C.P. `;
@@ -31,18 +31,26 @@ const zc = require('../index');
 
     let geoLocation;
     try {
-      let data = await zc.geoCode(address)
-      geoLocation = {
-        zipCode: pc, coordinates: data,
-        localty: record[32]
-      }
-      console.log(geoLocation);
+      zc.geoCode(address)
+        .then(data => {
+          geoLocation = {
+            zipCode: pc, coordinates: data,
+            localty: record[32]
+          }
+          zc.save(geoLocation)
+            .then(loc => {  // TODO Maybe do something with `loc`
+              counter += 1;
+              console.log(`Done ${counter}/${total}`);
+            })
+            .catch(error => {
+              console.log('MONGO', error);
+            });
+        })
+        .catch(error => {
+          console.log('MAP', error);
+        });
     } catch {
       console.log('Error on: ', address);
     }
-    counter += 1;
-
-    return geoLocation;
   });
-  zc.save(addresses);
 })();
