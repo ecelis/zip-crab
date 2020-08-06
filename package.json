@@ -1,5 +1,5 @@
 {
-  "name": "zip-crab",
+  "name": "@ecelis/zip-crab",
   "version": "1.0.0",
   "description": "Fetch Geocode information from HERE RESTful API",
   "main": "index.js",
