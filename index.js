@@ -8,8 +8,8 @@ if (process.env.NODE_ENV == 'development') {
   require('dotenv').config();
 }
 
-const { MONGODB_PASSWORD, MONGODB_USER, MONGODB_DB } = process.env
-const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0.9f0eo.mongodb.net/${MONGODB_DB}?retryWrites=true&w=majority`;
+const { MONGODB_CLUSTER, MONGODB_PASSWORD, MONGODB_USER, MONGODB_DB } = process.env
+const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_CLUSTER}/${MONGODB_DB}?retryWrites=true&w=majority`;
 const url = "https://geocoder.ls.hereapi.com/search/6.2/geocode.json";
 const apiKey = process.env.HERE_API_KEY;
 

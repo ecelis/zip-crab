@@ -10,33 +10,39 @@ const zc = require('../index');
     // Calle, Colonia, Ciudad, Estado, CP
     // let address = `${record[29]}, ${record[30]}, ${record[31]}, ${record[32]}, C.P. `;
     let address = `${record[32]}, C.P. `;
+    let pc = '';
     switch (record[33].length) {  // Zip Code
       case 4:
-        address += `0${record[33]}`;
+        pc = `0${record[33]}`;
         break;
       case 3:
-        address += `00${record[33]}`;
+        pc = `00${record[33]}`;
         break;
       case 2:
-        address += `000${record[33]}`;
+        pc = `000${record[33]}`;
         break;
       case 1:
-        address += `0000${record[33]}`;
+        pc = `0000${record[33]}`;
         break;
       default:
-        address += `${record[33]}`;
+        pc = `${record[33]}`;
     }
-    // GeoCode Address
-    await zc.geoCode(encodeURIComponent(address))
-      .then(data => {
-    let geoLocation = {
-      zipCode: record[33], coordinates: data,
-      localty: record[32]
+    address += pc;
+
+    let geoLocation;
+    try {
+      let data = await zc.geoCode(address)
+      geoLocation = {
+        zipCode: pc, coordinates: data,
+        localty: record[32]
+      }
+      console.log(geoLocation);
+    } catch {
+      console.log('Error on: ', address);
     }
     counter += 1;
-    console.log(`Done: ${geoLocation.zipCode} ${counter} / ${total}`);
+
     return geoLocation;
   });
-  console.log(addresses);
   zc.save(addresses);
 })();
